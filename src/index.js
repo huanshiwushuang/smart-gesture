@@ -1,4 +1,4 @@
-import { Unistroke, DollarRecognizer } from 'dollarOne';
+import { Unistroke, DollarRecognizer } from './dollarOne';
 import * as gesture from './dollarOne/gestures';
 
 const DO = new DollarRecognizer();
@@ -6,7 +6,7 @@ const emptyFunc = () => { };
 const svgPathId = 'elemefe_still_hiring_you_can_send_email_to_(yong.xiang@ele.me)';
 class Canvas {
     constructor(options = {}) {
-        this.options = {
+        this.options = Object.assign({
             el: document.body,
             onSwipe: emptyFunc,
             onGesture: emptyFunc,
@@ -19,9 +19,8 @@ class Canvas {
             activeColor: 'rgba(0, 0, 0, .05)',
             eventType: 'mouse',
             position: 'absolute',
-            zIndex: 1,
-            ...options,
-        };
+            zIndex: 999999999,
+        }, options);
         this.enable = true;
         this.path = null;
         this.startPos = null;
@@ -68,7 +67,9 @@ class Canvas {
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         this.path.id = svgPathId;
-        this.svg.setAttribute('style', `position: ${this.options.position}; top: 0; left: 0; background: ${this.options.activeColor}; z-index: ${this.options.zIndex}`);
+        // 背景颜色
+        let bg = this.options.activeColor ? `background: ${this.options.activeColor}` : '';
+        this.svg.setAttribute('style', `position: ${this.options.position}; top: 0; left: 0; ${bg}; z-index: ${this.options.zIndex}`);
         this.svg.setAttribute('width', `${this.options.el.offsetWidth}`);
         this.svg.setAttribute('height', `${this.options.el.offsetHeight}`);
         this.svg.setAttribute('fill', 'none');
@@ -162,11 +163,11 @@ class Canvas {
             return;
         }
         // 坐标变化了，才算移动了
-        if (!(e.offsetX === this.downEvent.offsetX && e.offsetY === this.downEvent.offsetY)) {
+        if (!(e.x === this.downEvent.x && e.y === this.downEvent.y)) {
             this.hasMove = true;
         }
 
-        // event.preventDefault();
+        e.preventDefault();
         this._progressSwipe(event);
     }
 
@@ -193,10 +194,10 @@ class Canvas {
         this.points = [];
     }
 
-    _contextmenu() {
+    _contextmenu(e) {
         // 如果启用 && 不是左键 && 已经移动=》禁用默认上下文
         if (this.enable && this.options.triggerMouseKey !== 'left' && this.hasMove) {
-            event.preventDefault();
+            e.preventDefault();
         }
     }
 
@@ -278,11 +279,12 @@ class Canvas {
     }
 
     refresh(options = {}) {
-        this.options = { ...this.options, ...options }
+        this.options = Object.assign(this.options, options)
     }
 
 }
 
 const smartGesture = (options) => new Canvas(options);
 
-module.exports = smartGesture;
+// module.exports = smartGesture;
+export default smartGesture
