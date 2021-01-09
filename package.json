@@ -2,7 +2,7 @@
   "name": "gh-smart-gesture",
   "version": "1.0.3",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "node server.js",
     "build": "set NODE_ENV=production && webpack --progress --hide-modules --config ./webpack.prod.config.js",
