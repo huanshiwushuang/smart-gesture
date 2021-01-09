@@ -1,14 +1,15 @@
 import smartGesture from '../src/index.js';
 import 'normalize.css';
-import '../src/css/main.scss';
+import '../src/css/main.less';
 
 let lastPoints = [];
 
 const options = {
   el: document.getElementById('test'),
   enablePath: true,
-  timeDelay: 100,
-  triggerMouseKey: 'left',
+  zIndex: 1000000000000,
+  timeDelay: 0,
+  triggerMouseKey: 'right',
   onSwipe: (list) => {
     document.getElementById('result0').innerHTML = list.join('');
     console.log(list);
@@ -21,6 +22,7 @@ const options = {
 };
 
 const canvas = smartGesture(options);
+console.log(canvas);
 
 document.getElementById('btn').addEventListener('click', () => {
   canvas.addGesture({

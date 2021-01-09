@@ -1,7 +1,9 @@
 # smart-gesture
 
 这是一个web版的鼠标手势组件，支持普通的鼠标手势和自定义图形手势, 在线 [demo](https://elemefe.github.io/smart-gesture/)
-
+【demo 放弃 scss，使用 less】
+【fork from https://github.com/ElemeFE/smart-gesture#readme】
+【优化：未移动，不屏蔽 contextmenu】
 ## 安装
 
 可通过npm安装
