@@ -149,7 +149,6 @@ class Canvas {
         }
 
         this._mouseDelayTimer = setTimeout(() => {
-            console.log(`_mouseDelayTimer`);
             if (this.options.enablePath) {
                 this._addPath(startPoint);
             }
