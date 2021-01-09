@@ -149,6 +149,7 @@ class Canvas {
         }
 
         this._mouseDelayTimer = setTimeout(() => {
+            console.log(`_mouseDelayTimer`);
             if (this.options.enablePath) {
                 this._addPath(startPoint);
             }
@@ -158,13 +159,17 @@ class Canvas {
     }
 
     _move(e) {
+        // 如果按下，且横纵坐标都移动 > 2 才算移动了
+        if (this.downEvent) {
+            this.hasMove = Math.abs(e.x - this.downEvent.x) > 2 && Math.abs(e.y - this.downEvent.y) > 2;
+        }
+        // 坐标变化了，才算移动了，chrome 有点击右键，却触发 move 的 bug
+        if (!this.hasMove) {
+            return;
+        }
         if (!this.isMovable) {
             clearTimeout(this._mouseDelayTimer);
             return;
-        }
-        // 坐标变化了，才算移动了
-        if (!(e.x === this.downEvent.x && e.y === this.downEvent.y)) {
-            this.hasMove = true;
         }
 
         e.preventDefault();
