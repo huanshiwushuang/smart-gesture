@@ -95,7 +95,7 @@ module.exports = [{
     },
 
     externals: {
-      'dollarOne': 'smart-gesture/dist/lib/dollarOne'
+      'dollarOne': 'gh-smart-gesture/dist/lib/dollarOne'
     },
 
     postcss() {
