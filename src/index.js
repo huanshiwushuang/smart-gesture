@@ -18,7 +18,7 @@ class Canvas {
             triggerMouseKey: 'right',
             activeColor: 'rgba(0, 0, 0, .05)',
             eventType: 'mouse',
-            position: 'absolute',
+            position: 'fixed',
             zIndex: 999999999,
         }, options);
         this.enable = true;
